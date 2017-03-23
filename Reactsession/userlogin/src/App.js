@@ -30,23 +30,24 @@ class App extends Component {
 
 
     e.preventDefault();
-    var {name,pwd}=state;
+    var {name : uname ,pwd}=state;
 
      var {userlist} = this.state ;
     let flag = 0;
 
     Userlist.map((item,i) => {
-        if ((name == item.name) && (pwd == item.pwd)) {
+        if ((uname == item.name) && (pwd == item.pwd)) {
             flag = 1;
             id = item.id;
-            console.log(id)
+
         }
     })
 
         if(flag==1){ //User is Found
 
             var obj = {
-                name:name,
+                uid:id,
+                uname:uname,
                 pwd: pwd,
 
             };
@@ -68,13 +69,32 @@ class App extends Component {
 
 }
 
+   /* /!**
+     * To append todo for resp user
+     * @param state - name date status etc
+     *!/
 
   usertodo = (state) =>{
 
         let {userlist} = this.state ;
 
         console.log('usertodo',state);
-        /*let obj = {
+
+        userlist.forEach((item,i)=>{
+
+            if(id==item.name){
+               console.log('uzssserrr');
+            /!*   var obj={
+                   list:state
+               }
+               item.push(obj);
+                this.setState({
+                    list:list
+                })*!/
+            }
+
+        })
+        /!*let obj = {
             name:name,
             date: date,
             status:status,
@@ -86,10 +106,10 @@ class App extends Component {
 
         this.setState({
             list:list
-        })*/
+        })*!/
 
     }
-
+*/
     render() {
         return (
             <div>
@@ -105,17 +125,20 @@ class App extends Component {
                                 <li><Link to = "/login">Login</Link></li>
                             </ul>
 
+                            <ul className="nav navbar-nav navbar-right" id="ulid">
+                                <li><Link to = "/logout">Logout</Link></li>
+                            </ul>
 
                         </nav>
                         <Route exact path="/" component={Home}/>
                         <Route path="/about" component={About}/>
                         <Route path="/login" render={props => (<Login {...props} chkauth={this.chkauth}  />)} />
-
+                        <Route path="/logout" component={Logout}/>
 
                         {this.state.isAuthenticated == true ?
                             <div>
-                                <Redirect to="/todo" params={{id:id}}/>
-                                <Route path="/todo/:id" render={props => (<Todo {...props}  usertodo={this.usertodo} />)}/>
+                                <Redirect  to={`/todo/${id}`} />
+                                <Route path="/todo/:id" render={props => (<Todo {...props}  uid={id} />)}/>
                             </div> :""
                         }
 

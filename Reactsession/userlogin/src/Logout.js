@@ -21,9 +21,7 @@ class Logout extends Component {
             <div>
                 <Router>
 
-                        {
-
-                                <div>
+                        { <div>
                                     <Redirect to="/"/>
                                     <Route exact path="/" component={Home}/>
                                 </div>

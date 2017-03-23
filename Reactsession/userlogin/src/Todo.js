@@ -29,6 +29,7 @@ export default class Apptodo extends React.Component {
             status:status,
             show:"",
             isChecked:false,
+            uid:this.props.uid,
 
         };
 
@@ -36,9 +37,9 @@ export default class Apptodo extends React.Component {
 
         this.setState({
             list:list
-        })
+        });
 
-      this.props.usertodo(this.state)
+     console.log("list",list)
 
     }
 
@@ -75,7 +76,8 @@ export default class Apptodo extends React.Component {
     }
 
     editItem=(newstate,indx)=>{
-        this.updateshow(indx)
+
+        this.updateshow(indx);
 
         let {list} = this.state ;
         let {text1:name,text2:date}=newstate;
@@ -86,10 +88,8 @@ export default class Apptodo extends React.Component {
 
         this.setState({
             list:objx,
-        })
+        });
 
-
-        console.log("LIst : ",list)
 
 
     }
@@ -98,19 +98,15 @@ export default class Apptodo extends React.Component {
 
     render(){
 
+        const uid=this.props.uid;
+
         const divstyle={
             marginLeft:'420px',
             padding:'10px'
         }
 
         return (<div style={divstyle}>
-                    <Router>
 
-                            <ul className="nav navbar-nav navbar-right">
-                                <li><Link to = "/logout">Logout</Link></li>
-                            </ul>
-
-                    </Router>
 
             <input type ="button" value="ADD"  className="btn btn-primary" onClick={() =>{
                 this.setState({hide:!this.state.hide})}}/>
