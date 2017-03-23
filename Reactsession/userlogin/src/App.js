@@ -3,17 +3,25 @@ import './App.css';
 import {BrowserRouter as Router ,Link ,Route ,Redirect } from 'react-router-dom'
 import Login from './Login'
 import Home from './Home'
-
+import Userprofile from './Userprofile'
 class App extends Component {
 
- showuser = ({ history},Authenticate,uname) => (
-   /* Authenticate ?
-          <Route render =  { () => { history.push('/Userprofile/:uname') } } />
-            :
-            <p>You are not logged in.</p>*/
-            console.log('sdjkckldj')
+    constructor() {
+        super();
+        this.state = {
+            isAuthenticated:false,
+        }
+    }
 
-)
+chkauth =(pwd) =>{
+
+       if( pwd==123){
+            this.setState({
+                isAuthenticated:true
+            })
+       }
+
+}
 
     render() {
         return (
@@ -28,8 +36,13 @@ class App extends Component {
 
                         </div>
                         <Route exact path="/" component={Home}/>
-                        <Route path = "/login" render = { props => (<Login {...props} chkauth = { this.showuser }/>) }/>
-
+                        {this.state.isAuthenticated == true ?
+                            <div>
+                                <Redirect to="/userprofile"/>
+                                <Route path="/userprofile" component={Userprofile}/>
+                            </div> :
+                            <Route path="/login" render={props => (<Login {...props} chkauth={this.chkauth}/>)}/>
+                        }
                     </div>
                 </Router>
 

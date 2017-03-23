@@ -10,7 +10,7 @@ export default class Login extends Component {
         this.state = {
             name: "",
             pwd: "",
-            isAuthenticated:false,
+
         }
     }
 
@@ -37,10 +37,7 @@ export default class Login extends Component {
                       className="button"
                       value="Login"
                       onClick={() => {
-                          this.state.pwd==123?
-                              this.setState({ isAuthenticated: true }, () =>(
-                                  this.props.chkauthenticate(this.state.isAuthenticated,this.state.name)
-                             )):<span>Not Authorised</span>
+                                this.props.chkauth(this.state.pwd)
                      }}
                />
 

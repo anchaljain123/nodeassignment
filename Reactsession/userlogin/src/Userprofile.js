@@ -4,6 +4,7 @@
 
 import React from 'react'
 import Userlist from './Userlist'
+import Showuser from './Showuser'
 import {BrowserRouter as Router ,Link ,Route ,Redirect } from 'react-router-dom'
 
 export default class Userprofile extends React.Component{
@@ -12,32 +13,28 @@ export default class Userprofile extends React.Component{
     }
 
 
-    display=props=> {
-    Userlist.map((item, i) => {
 
-    if (this.props.match.params.uname  == item[name])
-
-    return (
-        <div>{item}</div>
-    );
-
-})
-}
 
     render() {
         return (
             <div>
                 <Router>
                     <div>
-                        <div className="navbar">
+                        <div >
+
                             <ul>
-                                <li><Link to="/Userprofile">User 1</Link></li>
-                                <li><Link to="/Userprofile">User 2</Link></li>
+                                {
+                                    Userlist.map((item,i) =>(
+                                        <li key={i}><Link to={`/Userprofile/`+item.id}>{item.name}</Link></li>
+                                    ))
+                                }
+
+
 
                             </ul>
 
                         </div>
-                        <Route exact path="/UserProfile" render = { this.dislay } />
+                        <Route exact path="/UserProfile/:id"  component={Showuser} />
                     </div>
                 </Router>
             </div>

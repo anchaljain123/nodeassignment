@@ -1,7 +1,7 @@
 /**
  * Created by anchal on 21/3/17.
  */
-[
+let userarry=[
     {
         "id": 1,
         "name": "Leanne Graham",
@@ -245,3 +245,4 @@
 ]/**
  * Created by anchal on 21/3/17.
  */
+export default userarry;
