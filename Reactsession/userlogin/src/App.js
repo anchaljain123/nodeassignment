@@ -8,18 +8,24 @@ import About from './About'
 import Userprofile from './Userprofile'
 import Todo from './Todo'
 import Userlist from './Userlist'
+var jsonfile = require('jsonfile');
+
 
 let id;
+let indx;
 class App extends Component {
 
     constructor() {
         super();
         this.state = {
-            isAuthenticated: false,
-            iserr:false,
-            userlist:[],
+            isAuthenticated:  false,
+            iserr: false,
+            userlist: [],
         }
     }
+
+
+
 
     /**
      * Checking authentication & adding state in userlist
@@ -30,9 +36,8 @@ class App extends Component {
 
 
     e.preventDefault();
-    var {name : uname ,pwd}=state;
-
-     var {userlist} = this.state ;
+    let { name : uname ,pwd } = state;
+    let {userlist} = this.state ;
     let flag = 0;
 
     Userlist.map((item,i) => {
@@ -43,12 +48,13 @@ class App extends Component {
         }
     })
 
-        if(flag==1){ //User is Found
+        if(flag == 1){ //User is Found
 
             var obj = {
-                uid:id,
-                uname:uname,
+                uid: id,
+                uname: uname,
                 pwd: pwd,
+                arry: [],
 
             };
 
@@ -58,87 +64,102 @@ class App extends Component {
                 isAuthenticated: true,
                userlist: userlist,
             })
-            console.log('userlist',this.state.userlist)
+
         }
         else
         {
             this.setState({
-                iserr:true,
+                iserr: true,
             })
         }
 
 }
 
-   /* /!**
-     * To append todo for resp user
-     * @param state - name date status etc
-     *!/
-
   usertodo = (state) =>{
 
-        let {userlist} = this.state ;
+         let { userlist } = this.state ;
+         console.log("-----------------HIIIIII from todo")
 
-        console.log('usertodo',state);
+           // let { uid } =state;
+           // console.log(uid,'----------------uid from state')
 
-        userlist.forEach((item,i)=>{
+        let flag=0;
+        let f=0;
 
-            if(id==item.name){
-               console.log('uzssserrr');
-            /!*   var obj={
-                   list:state
-               }
-               item.push(obj);
-                this.setState({
-                    list:list
-                })*!/
-            }
 
-        })
-        /!*let obj = {
-            name:name,
-            date: date,
-            status:status,
-            show:"",
-            isChecked:false,
+      userlist.forEach((item,i) => {
 
-        }
-        userlist.push(obj);
 
-        this.setState({
-            list:list
-        })*!/
+          if(id == item.uid){
+
+              indx=i; //index where this user is present
+              f=1;
+
+          }
+
+      });
+
+      if( f== 1 ){
+
+          userlist[indx].arry.push(state);
+
+       this.setState({
+           userlist: userlist
+       })
+
+          console.log(" Final List Of A User :",userlist)
+      }
+
 
     }
-*/
+
+logoauth = () =>{
+
+    this.setState({
+        isAuthenticated:  false,
+    });
+    console.log(this.state.isAuthenticated,"----------------logout")
+    }
+
     render() {
+        console.log(this.state.isAuthenticated,'-------------user list authentication')
         return (
             <div>
 
                 <Router>
-                    <div>
+                    <div style={{marginLeft:'10px'}}>
 
                         <nav className="navbar navbar-inverse">
 
                             <ul className="nav navbar-nav">
                                 <li ><Link to = "/">Home</Link></li>
                                 <li><Link to = "/about">About</Link></li>
-                                <li><Link to = "/login">Login</Link></li>
+                                <li ><Link to = "/login">Login</Link></li>
                             </ul>
 
-                            <ul className="nav navbar-nav navbar-right" id="ulid">
-                                <li><Link to = "/logout">Logout</Link></li>
+                            <ul className="nav navbar-nav navbar-right"  id="ulid">
+                                <li style={{marginRight:'10x'}}><Link to = "/logout">Logout</Link></li>
                             </ul>
 
                         </nav>
-                        <Route exact path="/" component={Home}/>
-                        <Route path="/about" component={About}/>
-                        <Route path="/login" render={props => (<Login {...props} chkauth={this.chkauth}  />)} />
-                        <Route path="/logout" component={Logout}/>
 
-                        {this.state.isAuthenticated == true ?
+                        <Route exact path = "/" component={Home}/>
+                        <Route path = "/about" component={About}/>
+                        <Route path = "/login" render={props => (<Login {...props} chkauth={this.chkauth}  />)} />
+                        <Route path = "/logout" render ={props => (<Logout{...props}
+                                                                         logoutauth={this.logoauth} />)}
+                               />
+
+                        {
+
+                            this.state.isAuthenticated  ?
                             <div>
-                                <Redirect  to={`/todo/${id}`} />
-                                <Route path="/todo/:id" render={props => (<Todo {...props}  uid={id} />)}/>
+
+                                <Redirect  to = {`/todo/${id}`} />
+                                <Route path = "/todo/:id"
+                                       render ={props => (<Todo {...props}  uid={id}
+                                                                  usertodo={this.usertodo} />)}
+                                />
                             </div> :""
                         }
 

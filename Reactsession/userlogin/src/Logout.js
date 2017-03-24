@@ -14,6 +14,9 @@ class Logout extends Component {
         super();
 
     }
+    componentDidMount() {
+        this.props.logoutauth();
+    }
 
 
     render() {

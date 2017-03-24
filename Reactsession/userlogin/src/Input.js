@@ -24,8 +24,8 @@ export default class Input extends React.Component {
 
         return (<div className="row">
             <form className="form-inline">
-                <div className="form-group">
-                    <label class="control-label col-sm-2">Enter Name:</label>
+                <div className="form-group" style={{marginRight:'8px'}}>
+                    <label className="control-label col-sm-2">Enter Name:</label>
                     <div>
 
                     <input type="text" value={this.state.name} className="form-control"
@@ -34,7 +34,7 @@ export default class Input extends React.Component {
                 </div>
                 </div>
                 <div className="form-group">
-                    <label class="control-label col-sm-2">Enter TodoDate:</label>
+                    <label className="control-label col-sm-2">Enter TodoDate:</label>
                     <div>
                     <input type="date" value={this.state.date} className="form-control" id="date"
                            placeholder="Enter dateformat dd/mm/yy"
@@ -44,8 +44,8 @@ export default class Input extends React.Component {
                 </div>
 
 
-                    <div>
-                    <input type="button" className="btn btn-success" value="Save" onClick={() => {
+                    <div style={{marginLeft:'115px'}}>
+                    <input type="button" style={{width:'155px'}} className="btn btn-primary" value="Save" onClick={() => {
 
                         this.props.addItem(this.state)
                     }}/>

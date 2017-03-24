@@ -3,20 +3,36 @@
  */
 
 import React  from    'react'
-
+import font from './font-awesome.css'
+import free from './freelancer.min.css'
 
 const About =(props)=>(
     <div>
-
-        <h3> About App</h3>
-        <h4>It is the easiest life manager around, which means people stick with it twice as long as other
-            to-do apps. Over 15M users agree.</h4>
-        <ul>
-            <li> Simple design means it just works </li>
-            <li> Never forget a thing with timed and location based reminders </li>
-            <li>Any.do Assistant can take care of tasks for you - it’s that easy</li>
-            <li>Coordinate one on one meetings with just a few taps</li>
-        </ul>
+        <section className="success" id="about">
+        <div className="container">
+            <div className="row">
+                <div className="col-lg-12 text-center">
+                    <h2>About</h2>
+                    <hr className="star-light"/>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-lg-4 col-lg-offset-2">
+                    <h3>Get Organized</h3>
+                    <p>Todo keeps you in control of everything you need to – well – do! Todo makes it easy for you
+                        to enter and track to-dos and gives you the ability to visualize and prioritize
+                        what you need to get done. Getting your work in line and in order has never been easier.</p>
+                </div>
+                <div className="col-lg-4">
+                    <h3>Get in Sync </h3>
+                    <p>Todo keeps you on task by helping you see what’s most important and
+                        gives you tools (like built-in or custom alerts and reminders)
+                        that help you plan how to get things done.
+                        And if you’re part of a team, Todo’s collaboration features make it easier for you to win together.</p>
+                </div>
+            </div>
+        </div>
+        </section>
     </div>
 );
 
